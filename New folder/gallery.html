@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Wings of Compassion</title>
+    <!-- Google Fonts for consistency across all main pages -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- Base Layout & Resets --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #222222;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #e4ecf4 0%, #f1f7f6 50%, #d5e8e8 100%);
+            background-attachment: fixed;
+        }
+
+        /* --- Navigation Bar --- */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-brand span {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #008080;
+            letter-spacing: -0.3px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #444444;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: #008080;
+        }
+
+        nav ul li:last-child a {
+            background-color: #ff9f43;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 0.5rem 1.25rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav ul li:last-child a:hover {
+            background-color: #e68a2e;
+            transform: translateY(-1px);
+        }
+
+        /* --- About-Page Style Hero Banner --- */
+        .hero-banner {
+            background: linear-gradient(rgba(0, 128, 128, 0.85), rgba(0, 80, 80, 0.95)), url('style.css/gallery-hero.jpg') center/cover no-repeat;
+            color: #ffffff;
+            text-align: center;
+            padding: 4.5rem 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-banner h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.6rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* --- Main Layout Grid Content Container --- */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* --- Structured 15-Card Responsive Grid --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* --- Gallery Card Element Styling --- */
+        .gallery-card {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #008080;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Fixed Aspect-Ratio Image Shell */
+        .card-img-wrapper {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background-color: #eaeff2;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover .card-img-wrapper img {
+            transform: scale(1.06);
+        }
+
+        /* Card Content Text Block */
+        .card-details {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-details h3 {
+            font-family: 'Quicksand', sans-serif;
+            color: #2c3e50;
+            font-size: 1.25rem;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.2px;
+        }
+
+        .card-details p {
+            color: #555555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* --- Floating WhatsApp Icon Elements --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #ffffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: #ffffff;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20ba5a;
+        }
+
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #25d366;
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.4;
+            animation: whatsapp-pulse 2s infinite;
+        }
+
+        @keyframes whatsapp-pulse {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 1.5rem 2rem;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #008080;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ff9f43;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            color: #555555;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #777777;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+
+        /* --- Responsive Viewports --- */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; text-align: center; padding: 1rem; }
+            nav ul { flex-direction: column; gap: 0.75rem; width: 100%; }
+            .hero-banner { padding: 3rem 1.5rem; }
+            .hero-banner h1 { font-size: 2rem; }
+            .gallery-container { padding: 2rem 1.5rem; }
+            .gallery-grid { gap: 1.5rem; }
+            .footer-info, .footer-links { flex-direction: column; gap: 0.5rem; align-items: center; }
+            .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+            .whatsapp-float svg { width: 26px; height: 26px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav>
+        <a href="index.html" class="nav-brand">
+            <img src="style.css/logo.jpg" alt="Wings of Compassion Logo">
+            <span>Wings of Compassion</span>
+        </a>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="donate.html">Donate</a></li>
+        </ul>
+    </nav>
+
+    <!-- Structural About-Page Style Header Banner Block -->
+    <header class="hero-banner">
+        <h1>Our Moments & Memories</h1>
+        <p>Take a glimpse into the daily life, celebrations, and community support system at Wings of Compassion Children's Home.</p>
+    </header>
+
+    <!-- 15-Card Managed Container System -->
+    <main class="gallery-container">
+        <div class="gallery-grid">
+
+            <!-- Card 1 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery1.jpg" alt="Children learning in a bright classroom">
+                </div>
+                <div class="card-details">
+                    <h3>Classroom Learning</h3>
+                    <p>Our children engaging in morning lessons, building bright foundations for their educational journeys.</p>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/pic 2.jpg" alt="Outdoor playtime activity">
+                </div>
+                <div class="card-details">
+                    <h3>Playground Smiles</h3>
+                    <p>Joyful afternoons spent outdoors enjoying sports, games, and team building activities with friends.</p>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/strathmore 3.jpg" alt="Community outreach donation drive">
+                </div>
+                <div class="card-details">
+                    <h3>Community Support</h3>
+                    <p>Warm visits and food basket distributions organized by our incredible local donors and well-wishers.</p>
+                </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery4.jpg" alt="Art and craft workshop session">
+                </div>
+                <div class="card-details">
+                    <h3>Creative Arts Workshop</h3>
+                    <p>Nurturing self-expression and motor skills through painting, drawing, and crafting sessions.</p>
+                </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/pic 6.jpg" alt="Shared mealtime at the home">
+                </div>
+                <div class="card-details">
+                    <h3>Nutritious Mealtimes</h3>
+                    <p>Gathering together as a family to enjoy healthy, freshly cooked daily meals in our dining hall.</p>
+                </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery6.jpg" alt="Holiday celebration gathering">
+                </div>
+                <div class="card-details">
+                    <h3>Holiday Celebrations</h3>
+                    <p>Making magical memories during birthday celebrations and annual festive holiday gatherings.</p>
+                </div>
+            </article>
+
+            <!-- Card 7 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery7.jpg" alt="Children tending to a community garden">
+                </div>
+                <div class="card-details">
+                    <h3>Sustainable Gardening</h3>
+                    <p>Teaching sustainable livelihood skills as children help cultivate our backyard vegetable farm.</p>
+                </div>
+            </article>
+
+            <!-- Card 8 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery8.jpg" alt="Music and singing session">
+                </div>
+                <div class="card-details">
+                    <h3>Music & Choir Practice</h3>
+                    <p>The sounds of harmony fill the air during our weekly music, singing, and performance sessions.</p>
+                </div>
+            </article>
+
+            <!-- Card 9 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery9.jpg" alt="Volunteers working with children">
+                </div>
+                <div class="card-details">
+                    <h3>Mentorship & Guidance</h3>
+                    <p>Inspirational guest mentors reading stories and teaching valuable life skills to the children.</p>
+                </div>
+            </article>
+
+            <!-- Card 10 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery10.jpg" alt="Computer lab learning session">
+                </div>
+                <div class="card-details">
+                    <h3>Digital Literacy Training</h3>
+                    <p>Equipping our older kids with basic computer skills to open up modern educational opportunities.</p>
+                </div>
+            </article>
+
+            <!-- Card 11 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery11.jpg" alt="Sports day event racing">
+                </div>
+                <div class="card-details">
+                    <h3>Annual Sports Day</h3>
+                    <p>Fostering active physical development and friendly sportsmanship during our athletic field track events.</p>
+                </div>
+            </article>
+
+            <!-- Card 12 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery12.jpg" alt="Medical health checkup day">
+                </div>
+                <div class="card-details">
+                    <h3>Health & Wellness Visits</h3>
+                    <p>Ensuring absolute well-being through professional health checkups and preventative medical camps.</p>
+                </div>
+            </article>
+
+            <!-- Card 13 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery13.jpg" alt="Library reading corner hour">
+                </div>
+                <div class="card-details">
+                    <h3>Library Reading Hours</h3>
+                    <p>A quiet and focused space where minds expand through storybooks and curriculum materials.</p>
+                </div>
+            </article>
+
+            <!-- Card 14 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/gallery14.jpg" alt="Tree planting environment exercise">
+                </div>
+                <div class="card-details">
+                    <h3>Environmental Care</h3>
+                    <p>Instilling a love for nature by planting trees and keeping our environment beautiful and clean.</p>
+                </div>
+            </article>
+
+            <!-- Card 15 -->
+            <article class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="style.css/pic 3.jpg" alt="Group family portrait style shot">
+                </div>
+                <div class="card-details">
+                    <h3>Our Big Family</h3>
+                    <p>A strong community bound by love, safety, and mutual support at Wings of Compassion.</p>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- WhatsApp Floating Action Trigger -->
+    <a href="https://wa.me/254792081915" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat with us on WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.4 0 11.981 0c3.187.001 6.186 1.24 8.438 3.496 2.251 2.256 3.489 5.258 3.488 8.447-.003 6.657-5.343 12-11.924 12-2.007-.001-3.98-.502-5.735-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.863-9.755.002-2.61-1.01-5.063-2.85-6.905C16.628 2.097 14.181 1.08 11.647 1.08c-5.437 0-9.863 4.37-9.865 9.756-.001 1.679.452 3.32 1.309 4.755l-.995 3.636 3.731-.973zm13.114-6.495c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+        </svg>
+    </a>
+
+    <!-- Footer Area -->
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="donate.html">Donate</a></li>
+            </ul>
+
+            <div class="footer-info">
+                <span><strong>Phone:</strong> +254 792081915</span>
+                <span>|</span>
+                <span><strong>Email:</strong> info@wingsofcompassion.org</span>
+                <span>|</span>
+                <span><strong>Location:</strong> Lumumba Drive Roysambu Nairobi, Kenya </span>
+            </div>
+
+            <div class="footer-copyright">
+                <p>&copy; 2026 Wings of Compassion Children's Home. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

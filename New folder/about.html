@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team & Info - Wings of Compassion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #222222;
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Rotating Background Slideshow --- */
+        .bg-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background-color: #e4ecf4;
+        }
+
+        .bg-slideshow li {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: -2;
+        }
+
+        .bg-slideshow li.active {
+            opacity: 1;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(249, 251, 253, 0.45);
+            backdrop-filter: blur(1px);
+            z-index: -1;
+        }
+
+        /* --- Navigation Bar --- */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-brand span {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #008080;
+            letter-spacing: -0.3px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #444444;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: #008080;
+        }
+
+        nav ul li:last-child a {
+            background-color: #ff9f43;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 0.5rem 1.25rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav ul li:last-child a:hover {
+            background-color: #e68a2e;
+            transform: translateY(-1px);
+        }
+
+        /* --- Layout Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            flex: 1;
+        }
+
+        /* --- Section Headers --- */
+        .section-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.2rem;
+            color: #008080;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .staff-section {
+            margin-top: 5rem;
+        }
+
+        /* --- Grid Configurations --- */
+        .info-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .staff-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* --- Info Card Styles --- */
+        .info-card {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+            border-top: 5px solid #008080;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Subtle alternative theme header line for every second empty info card */
+        .info-card.alt-accent {
+            border-top-color: #ff9f43;
+        }
+
+        .info-card h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            color: #555555;
+            font-size: 0.95rem;
+        }
+
+        /* --- Staff Card Styles --- */
+        .staff-card {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 4px solid rgba(0, 128, 128, 0.2);
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border-bottom-color: #008080;
+        }
+
+        .avatar-wrapper {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 1.5rem auto;
+            position: relative;
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #f2f5f8;
+            /* Placeholder tint if image fails */
+        }
+
+        .staff-card h3 {
+            font-family: 'Quicksand', sans-serif;
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .staff-role {
+            color: #008080;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .staff-bio {
+            color: #666666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* --- Slim & Horizontal Footer Styles --- */
+        footer {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 1.5rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #008080;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ff9f43;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            color: #555555;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #777777;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-info,
+            .footer-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul class="bg-slideshow">
+        <li class="active" style="background-image: url('style.css/pic\ 9\ feeding.jpg');"></li>
+        <li style="background-image: url('style.css/pic\ 6.jpg');"></li>
+        <li style="background-image: url('style.css/pic\ 8\ visitors.jpg');"></li>
+    </ul>
+    <div class="bg-overlay"></div>
+
+    <nav>
+        <a href="index.html" class="nav-brand">
+            <img src="style.css/logo.jpg" alt="Wings of Compassion Logo">
+            <span>Wings of Compassion</span>
+        </a>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="donate.html">Donate</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <h1 class="section-title">General Information</h1>
+
+        <section class="info-cards-grid">
+            <div class="info-card">
+                <h2>POPULATION.</h2>
+                <p>As of now the home has currently EIGHTY Mothers and children.</p>
+            </div>
+
+            <div class="info-card alt-accent">
+                <h2>EDUCATION.</h2>
+                <p>All the girls are in school raising a concern for school fees,thoes who are not in secondary school
+                    are in short courses and acquiring skills.</p>
+            </div>
+
+            <div class="info-card">
+                <h2>RE-INTEGRATION.</h2>
+                <p>All the girls are re-integrated after secondary school to the society to acquire self reliance and
+                    they are taken to college while re-integrating.
+                </p>
+            </div>
+
+            <div class="info-card alt-accent">
+                <h2>STAFF.</h2>
+                <p>As of currently we have NINE hardworking and God-fearing staff as you will see below.</p>
+            </div>
+        </section>
+
+
+        <section class="staff-section">
+            <h2 class="section-title">Our Dedicated Staff</h2>
+
+            <div class="staff-cards-grid">
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff1.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Dr Bsp Danshire Kangethe and Dr Rev Tabbitha Wamuyu.</h3>
+                    <div class="staff-role">Founders and Directors</div>
+                    <p class="staff-bio">Dr Bsp Danshire and his wife are the heads of the home.Because Wings of
+                        Compassion is based on Christianity,they are the spiritual parents of the home too.
+                    </p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff2.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Ms Esther Mwathi.</h3>
+                    <div class="staff-role">Manager.</div>
+                    <p class="staff-bio">Esther is the manager of the home and also the main social worker of the
+                        home.She is also the big sister to the girls.
+                        .</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff3.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Ms Sarah Kibe.</h3>
+                    <div class="staff-role">Main Chef.</div>
+                    <p class="staff-bio">Sarah is the main chef of the home.She prepares the meals for the girls and
+                        their children ensuring that the are healthy
+                    </p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff4.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Ms Grace</h3>
+                    <div class="staff-role">Matron</div>
+                    <p class="staff-bio">Grace is gracefull just like her name,she is the secondary mother to the girls
+                        and a pillar of hope to the girls.</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff5.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Ms Jane Wanjiru.</h3>
+                    <div class="staff-role">Care Giver.</div>
+                    <p class="staff-bio">Jane is the care giver to the children once the girls go to school,she feeds
+                        the children and makes sure they are clean and full at all times.
+                        .</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff6.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Mr Steve Wanjeri.</h3>
+                    <div class="staff-role">Gardener.</div>
+                    <p class="staff-bio">Steve is the gardener ensuring that the children and girls stay in a pleasant
+                        environment and that they get good vegetables from the far,he is also a big brother figure to
+                        the girls.</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff7.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Mr Charles Shikuku.</h3>
+                    <div class="staff-role">Security Gaurd.
+
+                    </div>
+                    <p class="staff-bio">Charles is the security guard at the home ensuring the girls feel safe and are
+                        safe.He is also a father figure to the girls.
+                        .</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff8.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3>Ms Salome Nduko.</h3>
+                    <div class="staff-role">Accounting.</div>
+                    <p class="staff-bio">Salome is the main accounting personel in the home,she is also a sister figure
+                        since she is young and cares for the girls.
+                        .</p>
+                </div>
+
+                <div class="staff-card">
+                    <div class="avatar-wrapper">
+                        <img src="style.css/staff9.jpg" alt="Staff Portrait Placeholder">
+                    </div>
+                    <h3> Ms Salome Njoroge.</h3>
+                    <div class="staff-role">Councelor.</div>
+                    <p class="staff-bio">Sally is a mental health specialist and she deals with the mental health of the girls.
+                        .</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="donate.html">Donate</a></li>
+            </ul>
+
+            <div class="footer-info">
+                <span><strong>Phone:</strong> +254 792081915</span>
+                <span>|</span>
+                <span><strong>Email:</strong> info@wingsofcompassion.org</span>
+                <span>|</span>
+                <span><strong>Location:</strong>Lumumba Drive Roysambu Nairobi, Kenya</span>
+            </div>
+
+            <div class="footer-copyright">
+                <p>&copy; 2026 Wings of Compassion Children's Home. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const slides = document.querySelectorAll('.bg-slideshow li');
+        let currentSlideIndex = 0;
+        const slideIntervalTime = 5000;
+
+        function showNextSlide() {
+            slides[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            slides[currentSlideIndex].classList.add('active');
+        }
+
+        setInterval(showNextSlide, slideIntervalTime);
+    </script>
+
+</body>
+
+</html>

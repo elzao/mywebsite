@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Our Mission - Wings of Compassion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- Base Layout & Background --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #222222;
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #e4ecf4 0%, #f1f7f6 50%, #d5e8e8 100%);
+            background-attachment: fixed;
+        }
+
+        /* --- Navigation Bar --- */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-brand span {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #008080;
+            letter-spacing: -0.3px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #444444;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: #008080;
+        }
+
+        nav ul li:last-child a {
+            background-color: #ff9f43;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 0.5rem 1.25rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav ul li:last-child a:hover {
+            background-color: #e68a2e;
+            transform: translateY(-1px);
+        }
+
+        /* --- Main Structure --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.5rem;
+            color: #008080;
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #555555;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .donation-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* --- Security Optimization: Financial Account Cards --- */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .payment-card {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+            border-top: 5px solid #008080;
+        }
+
+        .payment-card.alt-accent {
+            border-top-color: #ff9f43;
+        }
+
+        .payment-card h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.65rem 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .payment-row:last-child {
+            border-bottom: none;
+        }
+
+        .row-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .row-value-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .txt-value {
+            color: #555555;
+            font-size: 0.95rem;
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Anti-Mistake Secure Copy Buttons */
+        .copy-btn {
+            background-color: #e2e8f0;
+            border: none;
+            color: #4a5568;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #008080;
+            color: white;
+        }
+
+        /* --- Right Column Impacts --- */
+        .impact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .impact-header {
+            font-family: 'Quicksand', sans-serif;
+            color: #008080;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-card {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid #ff9f43;
+        }
+
+        .impact-card h3 {
+            font-family: 'Quicksand', sans-serif;
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-card p {
+            color: #666666;
+            font-size: 0.95rem;
+        }
+
+        /* --- WhatsApp Vector Core Float --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #ffffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: #ffffff;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20ba5a;
+        }
+
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #25d366;
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.4;
+            animation: whatsapp-pulse 2s infinite;
+        }
+
+        @keyframes whatsapp-pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 1.5rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #008080;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ff9f43;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            color: #555555;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #777777;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .donation-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-info,
+            .footer-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .whatsapp-float svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-brand">
+            <img src="style.css/logo.jpg" alt="Wings of Compassion Logo">
+            <span>Wings of Compassion</span>
+        </a>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="donate.html">Donate</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Support Our Mission</h1>
+        <p class="page-subtitle">Your generous contributions go directly toward providing critical safety, restoration,
+            nutrition, and education for teenage mothers and their babies.</p>
+
+        <div class="donation-grid">
+
+            <section class="payment-methods">
+
+                <!-- M-Pesa Panel -->
+                <div class="payment-card">
+                    <h2>Mobile Money (M-Pesa)</h2>
+                    <div class="payment-row">
+                        <span class="row-label">Paybill Number:</span>
+                        <div class="row-value-container">
+                            <span class="txt-value" id="paybill">123456</span>
+                            <button class="copy-btn" onclick="copyData('paybill')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="payment-row">
+                        <span class="row-label">Account Name:</span>
+                        <div class="row-value-container">
+                            <span class="txt-value" id="accname">WINGS</span>
+                            <button class="copy-btn" onclick="copyData('accname')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Panel -->
+                <div class="payment-card alt-accent">
+                    <h2>Bank Transfers</h2>
+                    <div class="payment-row">
+                        <span class="row-label">Bank Name:</span>
+                        <span style="color:#555921; font-size:0.95rem;">Kenya Commercial Bank (KCB)</span>
+                    </div>
+                    <div class="payment-row">
+                        <span class="row-label">Account Number:</span>
+                        <div class="row-value-container">
+                            <span class="txt-value" id="bankaccount">110123456789</span>
+                            <button class="copy-btn" onclick="copyData('bankaccount')">Copy</button>
+                        </div>
+                    </div>
+                    <div class="payment-row">
+                        <span class="row-label">Swift Code:</span>
+                        <div class="row-value-container">
+                            <span class="txt-value" id="swiftcode">KCBLKENX</span>
+                            <button class="copy-btn" onclick="copyData('swiftcode')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- International Panel -->
+                <div class="payment-card">
+                    <h2>International Remittances</h2>
+                    <div class="payment-row">
+                        <span class="row-label">PayPal Email:</span>
+                        <div class="row-value-container">
+                            <span class="txt-value" id="paypalmail">donations@wingsofcompassion.org</span>
+                            <button class="copy-btn" onclick="copyData('paypalmail')">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="impact-container">
+                <h2 class="impact-header">How Your Donation Helps</h2>
+                <div class="impact-card">
+                    <h3>Nutrition & Feeding Program</h3>
+                    <p>Feeds healthy, balanced daily meals to vulnerable nursing teen mothers and newborn infants inside
+                        our residential center.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Water & Electricity Bills</h3>
+                    <p>Due to the large compound and people in the compound has led to high and expensive therefore we
+                        need your help to try to pay the bills.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Education Sponsorship</h3>
+                    <p>Covers tuition fees, uniforms, and textbooks to integrate young mothers back into secondary
+                        school after weaning and the college tuition for the re-integrated girls.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Counseling</h3>
+                    <p> Giving your time and love to the girls is also a form of donation.Your welcome to the home to give hope to then girls
+                        .</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <a href="https://wa.me/254792081915" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+        title="Chat with us on WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.4 0 11.981 0c3.187.001 6.186 1.24 8.438 3.496 2.251 2.256 3.489 5.258 3.488 8.447-.003 6.657-5.343 12-11.924 12-2.007-.001-3.98-.502-5.735-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.863-9.755.002-2.61-1.01-5.063-2.85-6.905C16.628 2.097 14.181 1.08 11.647 1.08c-5.437 0-9.863 4.37-9.865 9.756-.001 1.679.452 3.32 1.309 4.755l-.995 3.636 3.731-.973zm13.114-6.495c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+        </svg>
+    </a>
+
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="donate.html">Donate</a></li>
+            </ul>
+            <div class="footer-info">
+                <span><strong>Phone:</strong> +254 792081915</span><span>|</span>
+                <span><strong>Email:</strong> info@wingsofcompassion.org</span><span>|</span>
+                <span><strong>Location:</strong>Lumumba Drive Roysambu  Nairobi, Kenya</span>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2026 Wings of Compassion Children's Home. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Anti-Mistake Copy Engine Script -->
+    <script>
+        function copyData(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const triggerButton = window.event.target;
+                const originalLabel = triggerButton.innerText;
+
+                triggerButton.innerText = "Copied!";
+                triggerButton.style.backgroundColor = "#25d366";
+                triggerButton.style.color = "#ffffff";
+
+                setTimeout(() => {
+                    triggerButton.innerText = originalLabel;
+                    triggerButton.style.backgroundColor = "";
+                    triggerButton.style.color = "";
+                }, 1500);
+            }).catch(err => {
+                console.error("Secure Clipboard operation blocked or unverified: ", err);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
